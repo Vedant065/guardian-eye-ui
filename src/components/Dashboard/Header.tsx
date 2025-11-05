@@ -1,24 +1,32 @@
-import { Shield, Bell, User } from "lucide-react";
+import { Shield, Bell, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const navItems = ["Home", "Timeline", "Automations", "Community", "Reports"];
 
   return (
-    <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-      <div className="container mx-auto px-6 py-4">
+    <header className="border-b border-border/50 bg-card/30 backdrop-blur-xl sticky top-0 z-50">
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5" />
+      <div className="container mx-auto px-6 py-4 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <Shield className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">SentinelSphere</span>
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
+                <Shield className="h-7 w-7 text-primary relative animate-glow-pulse" />
+              </div>
+              <span className="text-2xl font-display font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
+                SentinelSphere
+              </span>
             </div>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-1">
               {navItems.map((item, index) => (
                 <button
                   key={item}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    index === 0 ? "text-primary" : "text-muted-foreground"
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                    index === 0 
+                      ? "bg-primary/10 text-primary shadow-glow-sm" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                   }`}
                 >
                   {item}
@@ -26,13 +34,18 @@ const Header = () => {
               ))}
             </nav>
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative">
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="relative hover:bg-secondary/50 transition-all duration-300">
               <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-destructive animate-pulse" />
+              <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-destructive shadow-glow-destructive flex items-center justify-center">
+                <span className="h-2 w-2 rounded-full bg-destructive-foreground animate-pulse" />
+              </span>
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="hover:bg-secondary/50 transition-all duration-300">
               <User className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
             </Button>
           </div>
         </div>
