@@ -1,8 +1,16 @@
 import { Shield, Bell, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
-  const navItems = ["Home", "Timeline", "Automations", "Community", "Reports"];
+  const location = useLocation();
+  const navItems = [
+    { label: "Home", path: "/" },
+    { label: "Statistics", path: "/statistics" },
+    { label: "Timeline", path: "/timeline" },
+    { label: "Automations", path: "/automations" },
+    { label: "Reports", path: "/reports" }
+  ];
 
   return (
     <header className="border-b border-border/50 bg-card/30 backdrop-blur-xl sticky top-0 z-50">
@@ -20,18 +28,22 @@ const Header = () => {
               </span>
             </div>
             <nav className="hidden md:flex items-center gap-1">
-              {navItems.map((item, index) => (
-                <button
-                  key={item}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                    index === 0 
-                      ? "bg-primary/10 text-primary shadow-glow-sm" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "bg-primary/10 text-primary shadow-glow-sm" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
           <div className="flex items-center gap-3">
